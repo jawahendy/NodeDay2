@@ -1,0 +1,186 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Customer List</title>
+  <link href="/assets/css/bootstrap.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+  <div class="container">
+    <center><h2>Customer List</h2></center>
+		{{!-- <button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">Add New</button> --}}
+    <table class="table table-striped" id="mytable">
+      <thead>
+        <tr>
+          <th>customer ID</th>
+          <th>Nama</th>
+          <th>Alamat</th>
+          <th>Kode Pos</th>
+          <th>HP</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+         {{#each results}}
+        <tr>
+          <td>{{ customer_id }}</td>
+          <td>{{ nama }}</td>
+          <td>{{ alamat }}</td>
+          <td>{{ kode_pos }}</td>
+          <td>{{ no_hp }}</td>
+          <td>{{ email }}</td>
+          <td>
+            <a href="javascript:void(0);" class="btn btn-sm btn-info edit" data-id="{{ customer_id }}" data-nama="{{ nama }}" data-alamat="{{ alamat }}" data-kode_pos="{{ kode_pos }}" data-no_hp="{{ no_hp }}" data-email="{{ email }}">Edit <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-square" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg></a>
+            <a href="javascript:void(0);" class="btn btn-sm btn-danger delete" data-id="{{ customer_id }}">Delete <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+            </svg></a>
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+    <center><button class="btn btn-success" data-toggle="modal" data-target="#myModalAdd">
+      <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-person-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0zM6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm6 5c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10zM13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"/>
+      </svg></button></center>
+  </div>
+
+	<!-- Add New Product Modal-->
+	  <form action="/save" method="post">
+        <div class="modal fade" id="myModalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+         <div class="modal-dialog" role="document">
+           <div class="modal-content">
+             <div class="modal-header">
+               <h5 class="modal-title" id="exampleModalLabel">Add New Customer</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+               </button>
+             </div>
+             <div class="modal-body">
+               <div class="form-group">
+                   <input type="text" name="nama" class="form-control" placeholder="Nama" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="alamat" class="form-control" placeholder="alamat" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="kode_pos" class="form-control" placeholder="kode_pos" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="no_hp" class="form-control" placeholder="no_hp" required>
+               </div>
+
+               <div class="form-group">
+                   <input type="text" name="email" class="form-control" placeholder="email" required>
+               </div>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+               <button type="submit" class="btn btn-primary">Save</button>
+             </div>
+           </div>
+         </div>
+        </div>
+	 </form>
+
+	 <!-- Edit Product Modal-->
+   <form action="/update" method="post">
+       <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Product</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                  <input type="text" name="nama" class="form-control nama" placeholder="Nama" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="alamat" class="form-control alamat" placeholder="alamat" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="kode_pos" class="form-control kode_pos" placeholder="kode_pos" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="no_hp" class="form-control no_hp" placeholder="no_hp" required>
+              </div>
+
+              <div class="form-group">
+                  <input type="text" name="email" class="form-control email" placeholder="email" required>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <input type="hidden" name="id" class="customer_id">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+          </div>
+        </div>
+       </div>
+  </form>
+
+	 <!-- Delete Product Modal-->
+ 	  <form id="add-row-form" action="/delete" method="post">
+ 	     <div class="modal fade" id="DeleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ 	        <div class="modal-dialog">
+ 	           <div class="modal-content">
+ 	               <div class="modal-header">
+									 	<h5 class="modal-title" id="myModalLabel">Delete Customer</h5>
+ 	                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+ 	               </div>
+ 	               <div class="modal-body">
+												 <strong>Are You Sure To Delete This Data?</strong>
+ 	               </div>
+ 	               <div class="modal-footer">
+									 		<input type="hidden" name="customer_id" class="form-control customer_id2" required>
+ 	                   	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+ 	                  	<button type="submit" class="btn btn-success">Delete</button>
+ 	               </div>
+ 	      			</div>
+ 	        </div>
+ 	     </div>
+ 	 </form>
+
+<script src="/assets/js/jquery-3.5.1.js"></script>
+<script src="/assets/js/bootstrap.js"></script>
+<script>
+    $(document).ready(function(){
+			//showing data to modal for edit record
+      $('#mytable').on('click','.edit',function(){
+        var customer_id = $(this).data('id');
+        var nama = $(this).data('nama');
+        var alamat = $(this).data('alamat');
+        var kode_pos = $(this).data('kode_pos');
+        var no_hp = $(this).data('no_hp');
+        var email = $(this).data('email');
+        $('#EditModal').modal('show');
+        $('.nama').val(nama);
+        $('.alamat').val(alamat);
+        $('.kode_pos').val(kode_pos);
+        $('.no_hp').val(no_hp);
+        $('.email').val(email);
+        $('.customer_id').val(customer_id);
+      });
+			//showing modal for delete record
+			$('#mytable').on('click','.delete',function(){
+        var customer_id = $(this).data('id');
+        $('#DeleteModal').modal('show');
+        $('.customer_id2').val(customer_id);
+      });
+
+    });
+</script>
+</body>
+</html>

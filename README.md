@@ -1,1 +1,1 @@
-# NodeDay2
+untuk jalanin npm i terlebih dahulu
